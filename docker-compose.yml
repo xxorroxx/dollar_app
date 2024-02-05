@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgre-db:
+    image: postgres:latest
+    container_name: postgre-db # nombre del contenedor 
+    user: root # el superusuario tiene acceso a escribir en cualquier directorio del contenedor
+    volumes:
+      - postgre-db:/var/lib/postgresql/data # persistencia de datos
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dollar_value_DB # https://stackoverflow.com/questions/59390694/how-to-make-postgresql-use-environment-variables-from-env-file-after-re-creatin
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+  node-app:
+    build:
+      context: . # carpeta raiz del proyecto
+      dockerfile: Dockerfile # nombre del dockerfile
+    container_name: dollar_app # nombre del contenedor 
+    environment:
+      PGUSER: admin
+      PGHOST: postgre-db
+      PGPASSWORD: admin
+      PGDATABASE: dollar_value_DB
+      PGPORT: 5432
+    depends_on:
+      - postgre-db  # esta aplicacion depende de una base de datos, crea un link para que las apps se puedan comunicar.
+
+volumes:
+  postgre-db:
