@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      PGDATABASE: dollar_value_DB # https://stackoverflow.com/questions/59390694/how-to-make-postgresql-use-environment-variables-from-env-file-after-re-creatin
+      PGDATABASE: dollar_value_DB # official postgre documentation env names used
       PGUSER: admin
       PGPASSWORD: admin
 
