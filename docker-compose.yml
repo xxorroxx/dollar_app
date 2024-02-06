@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgre-db:
-    image: postgres:latest
+    image: postgres:alpine
     container_name: postgre-db # nombre del contenedor 
     user: root # el superusuario tiene acceso a escribir en cualquier directorio del contenedor
     volumes:
@@ -10,9 +10,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: dollar_value_DB # https://stackoverflow.com/questions/59390694/how-to-make-postgresql-use-environment-variables-from-env-file-after-re-creatin
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      PGDATABASE: dollar_value_DB # https://stackoverflow.com/questions/59390694/how-to-make-postgresql-use-environment-variables-from-env-file-after-re-creatin
+      PGUSER: admin
+      PGPASSWORD: admin
 
   node-app:
     build:
